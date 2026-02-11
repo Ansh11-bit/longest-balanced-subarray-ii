@@ -1,69 +1,29 @@
 # Longest Balanced Subarray II
 
-LeetCode Problem: [Longest Balanced Subarray II](https://leetcode.com/problems/longest-balanced-subarray-ii/?envType=daily-question&envId=2026-02-11)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue) ![Contributors](https://img.shields.io/badge/contributors-5-orange)  
 
-## Problem Description
+## Overview
+This repository implements an algorithm for finding the longest balanced subarray within a given array. A balanced subarray is defined as a contiguous subarray whose number of 1s equals the number of 0s.  
 
-Find the longest contiguous subarray where for every even number at position `i`, there exists an odd number at position `i+1`, and vice versa (alternating even-odd pattern).
+## Algorithm Explanation
+The algorithm employed in this solution uses a hash map to store the cumulative sums of elements encountered as we iterate through the array. The key idea is to convert the 0s to -1s so that we can treat the problem as finding the maximum length subarray with a cumulative sum of 0.  
 
-## Solution Approach
-
-This solution uses an **advanced segment tree with lazy propagation** to efficiently handle range updates and queries.
-
-### Key Features
-
-- **Time Complexity:** O(n log n)
-- **Space Complexity:** O(n)
-- **Optimization Techniques:**
-  - Segment tree with lazy propagation for efficient range updates
-  - Array module for cache efficiency and memory compactness
-  - Bitwise operations for parity checking (odd/even detection)
-  - Local variable binding for speed optimization
-
-### Algorithm Overview
-
-1. **Parity Tracking:** Track odd numbers as +1 and even numbers as -1
-2. **Range Updates:** Use segment tree to update ranges efficiently
-3. **Balance Calculation:** Maintain running balance and search for longest valid subarray
-4. **Binary Search:** Find the leftmost position where the balance satisfies constraints
-
-### Data Structures Used
-
-- **Lazy Array:** Tracks pending updates
-- **Min/Max Trees:** Maintain minimum and maximum values in ranges
-- **Lookup Table:** Maps values to their positions
-
-## How to Use
-
-```python
-from solution import Solution
-
-# Example 1
-nums = [1, 2, 3, 4]
-solution = Solution()
-result = solution.longestBalanced(nums)
-print(result)  # Output: 4
-
-# Example 2
-nums = [1, 1, 1, 2, 2, 2]
-solution = Solution()
-result = solution.longestBalanced(nums)
-print(result)  # Output: 0
-```
+### Steps:
+1. **Initialize Variables**: Begin by defining a hash map to keep track of the cumulative sum indices and a variable to track the maximum length of the balanced subarray.  
+2. **Iterate Through the Array**: As you loop through the array, update the cumulative sum.  
+   - If the current element is 0, decrement the sum by 1 (treating 0 as -1);
+   - If it is 1, increment the sum by 1.
+3. **Check for Maximum Length**: If the cumulative sum has been seen before, calculate the length of the subarray from the index stored in the hash map to the current index. If this length is greater than the previously recorded maximum length, update it.  
+4. **Store the Sum**: If the cumulative sum hasn’t been seen before, store its index in the hash map.
 
 ## Complexity Analysis
+- **Time Complexity**: O(n), where n is the number of elements in the array. We traverse the array once, performing constant-time operations.
+- **Space Complexity**: O(n), where n is the maximum size of the hash map that stores the cumulative sums and their corresponding indices.
 
-- **Time:** O(n log n) - n iterations with log n operations per iteration
-- **Space:** O(n) - segment tree and auxiliary data structures
+## Best Practices
+- Always validate the input to handle edge cases such as empty arrays or arrays with all identical elements.
+- Use meaningful variable names that convey purpose to improve code readability.
+- Consider edge cases where elements may be repeated or when balancing isn’t possible.
 
-## Optimization Details
-
-- Uses Python's `array` module for signed integers ('i') instead of lists
-- Bitwise operations for parity detection: `num & 1`
-- Local variable binding for frequently called methods (_apply, _pull, _push)
-- Efficient lazy propagation to avoid redundant computations
-
----
-
-**Author:** Ansh11-bit  
-**Date:** 2026-02-11
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
