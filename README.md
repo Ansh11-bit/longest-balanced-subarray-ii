@@ -1,33 +1,35 @@
-# Longest Balanced Subarray (Distinct Parity)
+# Longest Subarray with Equal Count of Odd and Even Numbers
 
-![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Time](https://img.shields.io/badge/Time-O(n%20log%20n)-brightgreen)
 ![Space](https://img.shields.io/badge/Space-O(n)-blue)
+![Approach](https://img.shields.io/badge/Approach-Segment%20Tree%20%2B%20Lazy%20Propagation-orange)
 
-Find the **longest subarray** in which the number of **distinct even numbers** equals the number of **distinct odd numbers**.
+Efficient solution using a **segment tree with lazy propagation** to find the longest subarray where the **number of odd elements equals the number of even elements**.
 
-## Problem
+## Problem It Solves
 
-Given an integer array `nums`, return the length of the longest subarray where  
-**the count of unique even values == the count of unique odd values**.
+Return the length of the **longest subarray** in which:
 
-**Note**: Repeated numbers do **not** increase the distinct count.
+- count of odd numbers == count of even numbers
+
+(or equivalently: prefix balance returns to zero after transformations)
+
+**Important note**  
+This is **not** the problem of equal number of **distinct** odd and even values.  
+This version only cares about **parity count**, not distinct values.
 
 ## Examples
 
 ```text
-Example 1:
-Input: nums = [2,5,4,3]
+Input:  [1,2,3,4,5]
 Output: 4
-Explanation: [2,5,4,3] → evens: {2,4}, odds: {5,3} → 2 == 2
+Explanation: [2,3,4,5] → 2 odds (3,5), 2 evens (2,4)
 
-Example 2:
-Input: nums = [3,2,2,5,4]
-Output: 5
-Explanation: whole array → evens: {2,4}, odds: {3,5} → 2 == 2
+Input:  [3,2,2,5,4]
+Output: 4   (e.g. [2,2,5,4] or [3,2,2,5])
+        (whole array has 2 odds + 3 evens → not balanced)
 
-Example 3:
-Input: nums = [1,2,3,2]
-Output: 3
-Explanation: [2,3,2] → evens: {2}, odds: {3} → 1 == 1
-           [1,2,3]   → evens: {2}, odds: {1,3} → 1 != 2
+Input:  [2,4,6,1,3,5]
+Output: 6
+Explanation: whole array → 3 odds, 3 evens
